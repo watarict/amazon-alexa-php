@@ -5,8 +5,8 @@ namespace MaxBeckers\AmazonAlexa\Helper;
 use GuzzleHttp\Client;
 use MaxBeckers\AmazonAlexa\Exception\DeviceApiCallException;
 use MaxBeckers\AmazonAlexa\Exception\MissingRequestDataException;
-use MaxBeckers\AmazonAlexa\Request\Device\DeviceAddressInformation;
 use MaxBeckers\AmazonAlexa\Request\Request;
+use MaxBeckers\AmazonAlexa\Request\Standard\Device\DeviceAddressInformation;
 
 /**
  * This helper class can call the amazon api to get address information.

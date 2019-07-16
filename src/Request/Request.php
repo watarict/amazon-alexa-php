@@ -4,24 +4,26 @@ namespace MaxBeckers\AmazonAlexa\Request;
 
 use MaxBeckers\AmazonAlexa\Exception\MissingRequestDataException;
 use MaxBeckers\AmazonAlexa\Exception\MissingRequiredHeaderException;
-use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
-use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackFailedRequest;
-use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackFinishedRequest;
-use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackNearlyFinishedRequest;
-use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackStartedRequest;
-use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackStoppedRequest;
-use MaxBeckers\AmazonAlexa\Request\Request\CanFulfill\CanFulfillIntentRequest;
-use MaxBeckers\AmazonAlexa\Request\Request\Display\ElementSelectedRequest;
-use MaxBeckers\AmazonAlexa\Request\Request\GameEngine\InputHandlerEvent;
-use MaxBeckers\AmazonAlexa\Request\Request\PlaybackController\NextCommandIssued;
-use MaxBeckers\AmazonAlexa\Request\Request\PlaybackController\PauseCommandIssued;
-use MaxBeckers\AmazonAlexa\Request\Request\PlaybackController\PlayCommandIssued;
-use MaxBeckers\AmazonAlexa\Request\Request\PlaybackController\PreviousCommandIssued;
-use MaxBeckers\AmazonAlexa\Request\Request\Standard\IntentRequest;
-use MaxBeckers\AmazonAlexa\Request\Request\Standard\LaunchRequest;
-use MaxBeckers\AmazonAlexa\Request\Request\Standard\SessionEndedRequest;
-use MaxBeckers\AmazonAlexa\Request\Request\System\ConnectionsResponseRequest;
-use MaxBeckers\AmazonAlexa\Request\Request\System\ExceptionEncounteredRequest;
+use MaxBeckers\AmazonAlexa\Request\Standard\Context;
+use MaxBeckers\AmazonAlexa\Request\Standard\Request\AbstractRequest;
+use MaxBeckers\AmazonAlexa\Request\Standard\Request\AudioPlayer\PlaybackFailedRequest;
+use MaxBeckers\AmazonAlexa\Request\Standard\Request\AudioPlayer\PlaybackFinishedRequest;
+use MaxBeckers\AmazonAlexa\Request\Standard\Request\AudioPlayer\PlaybackNearlyFinishedRequest;
+use MaxBeckers\AmazonAlexa\Request\Standard\Request\AudioPlayer\PlaybackStartedRequest;
+use MaxBeckers\AmazonAlexa\Request\Standard\Request\AudioPlayer\PlaybackStoppedRequest;
+use MaxBeckers\AmazonAlexa\Request\Standard\Request\CanFulfill\CanFulfillIntentRequest;
+use MaxBeckers\AmazonAlexa\Request\Standard\Request\Display\ElementSelectedRequest;
+use MaxBeckers\AmazonAlexa\Request\Standard\Request\GameEngine\InputHandlerEvent;
+use MaxBeckers\AmazonAlexa\Request\Standard\Request\PlaybackController\NextCommandIssued;
+use MaxBeckers\AmazonAlexa\Request\Standard\Request\PlaybackController\PauseCommandIssued;
+use MaxBeckers\AmazonAlexa\Request\Standard\Request\PlaybackController\PlayCommandIssued;
+use MaxBeckers\AmazonAlexa\Request\Standard\Request\PlaybackController\PreviousCommandIssued;
+use MaxBeckers\AmazonAlexa\Request\Standard\Request\Standard\IntentRequest;
+use MaxBeckers\AmazonAlexa\Request\Standard\Request\Standard\LaunchRequest;
+use MaxBeckers\AmazonAlexa\Request\Standard\Request\Standard\SessionEndedRequest;
+use MaxBeckers\AmazonAlexa\Request\Standard\Request\System\ConnectionsResponseRequest;
+use MaxBeckers\AmazonAlexa\Request\Standard\Request\System\ExceptionEncounteredRequest;
+use MaxBeckers\AmazonAlexa\Request\Standard\Session;
 
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
@@ -31,7 +33,7 @@ class Request
     /**
      * List of all supported amazon request types.
      */
-    const REQUEST_TYPES = [
+    const STANDARD_REQUEST_TYPES = [
         // Standard types
         IntentRequest::TYPE                 => IntentRequest::class,
         LaunchRequest::TYPE                 => LaunchRequest::class,
@@ -111,17 +113,9 @@ class Request
         $request->signatureCertChainUrl = $signatureCertChainUrl;
         $request->signature             = $signature;
         $request->amazonRequestBody     = $amazonRequestBody;
-        $amazonRequest                  = json_decode($amazonRequestBody, true);
+        $amazonRequest                  = (array) json_decode($amazonRequestBody, true);
 
-        $request->version = isset($amazonRequest['version']) ? $amazonRequest['version'] : null;
-        $request->session = isset($amazonRequest['session']) ? Session::fromAmazonRequest($amazonRequest['session']) : null;
-        $request->context = isset($amazonRequest['context']) ? Context::fromAmazonRequest($amazonRequest['context']) : null;
-
-        if (isset($amazonRequest['request']['type']) && isset(self::REQUEST_TYPES[$amazonRequest['request']['type']])) {
-            $request->request = (self::REQUEST_TYPES[$amazonRequest['request']['type']])::fromAmazonRequest($amazonRequest['request']);
-        } else {
-            throw new MissingRequestDataException();
-        }
+        $request->setRequest($amazonRequest);
 
         if ($request->request->validateSignature()) {
             if (!$request->signatureCertChainUrl || !$request->signature) {
@@ -145,5 +139,47 @@ class Request
         }
 
         return null;
+    }
+
+    /**
+     * @param array $amazonRequest
+     *
+     * @throws MissingRequestDataException
+     */
+    private function setRequest(array $amazonRequest)
+    {
+        if (
+            isset($amazonRequest['request']['type']) &&
+            isset(static::STANDARD_REQUEST_TYPES[$amazonRequest['request']['type']])
+        ) {
+            $this->setStandardRequest($amazonRequest);
+        } elseif (
+            isset($amazonRequest['directive']['header']['namespace']) &&
+            isset($amazonRequest['directive']['header']['name']) &&
+            isset(static::STANDARD_REQUEST_TYPES[$amazonRequest['directive']['header']['namespace']][$amazonRequest['directive']['header']['name']])
+        ) {
+            $this->setSmartHomeRequest($amazonRequest);
+        } else {
+            throw new MissingRequestDataException();
+        }
+    }
+
+    /**
+     * @param array $amazonRequest
+     */
+    private function setStandardRequest(array $amazonRequest)
+    {
+        $this->version = isset($amazonRequest['version']) ? $amazonRequest['version'] : null;
+        $this->session = isset($amazonRequest['session']) ? Session::fromAmazonRequest($amazonRequest['session']) : null;
+        $this->context = isset($amazonRequest['context']) ? Context::fromAmazonRequest($amazonRequest['context']) : null;
+        $this->request = (static::STANDARD_REQUEST_TYPES[$amazonRequest['request']['type']])::fromAmazonRequest($amazonRequest['request']);
+    }
+
+    /**
+     * @param array $amazonRequest
+     */
+    private function setSmartHomeRequest(array $amazonRequest)
+    {
+        $this->request = (static::STANDARD_REQUEST_TYPES[$amazonRequest['directive']['header']['namespace']][$amazonRequest['directive']['header']['name']])::fromAmazonRequest($amazonRequest['request']);
     }
 }

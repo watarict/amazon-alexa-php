@@ -4,7 +4,7 @@ namespace MaxBeckers\AmazonAlexa\RequestHandler\Basic;
 
 use MaxBeckers\AmazonAlexa\Helper\ResponseHelper;
 use MaxBeckers\AmazonAlexa\Request\Request;
-use MaxBeckers\AmazonAlexa\Request\Request\System\ExceptionEncounteredRequest;
+use MaxBeckers\AmazonAlexa\Request\Standard\Request\System\ExceptionEncounteredRequest;
 use MaxBeckers\AmazonAlexa\RequestHandler\AbstractRequestHandler;
 use MaxBeckers\AmazonAlexa\Response\Response;
 

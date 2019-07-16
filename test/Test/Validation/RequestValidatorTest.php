@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 use MaxBeckers\AmazonAlexa\Exception\RequestInvalidSignatureException;
 use MaxBeckers\AmazonAlexa\Exception\RequestInvalidTimestampException;
 use MaxBeckers\AmazonAlexa\Request\Request;
-use MaxBeckers\AmazonAlexa\Request\Request\Standard\IntentRequest;
+use MaxBeckers\AmazonAlexa\Request\Standard\Request\Standard\IntentRequest;
 use MaxBeckers\AmazonAlexa\Validation\RequestValidator;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
