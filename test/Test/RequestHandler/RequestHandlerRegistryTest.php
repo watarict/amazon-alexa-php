@@ -4,11 +4,11 @@ namespace MaxBeckers\AmazonAlexa\Test\Request\StandardHandler;
 
 use MaxBeckers\AmazonAlexa\Exception\MissingRequestHandlerException;
 use MaxBeckers\AmazonAlexa\Helper\ResponseHelper;
+use MaxBeckers\AmazonAlexa\Request\Custom\Application;
+use MaxBeckers\AmazonAlexa\Request\Custom\Context;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request\Standard\IntentRequest;
+use MaxBeckers\AmazonAlexa\Request\Custom\System;
 use MaxBeckers\AmazonAlexa\Request\Request;
-use MaxBeckers\AmazonAlexa\Request\Standard\Application;
-use MaxBeckers\AmazonAlexa\Request\Standard\Context;
-use MaxBeckers\AmazonAlexa\Request\Standard\Request\Standard\IntentRequest;
-use MaxBeckers\AmazonAlexa\Request\Standard\System;
 use MaxBeckers\AmazonAlexa\RequestHandler\AbstractRequestHandler;
 use MaxBeckers\AmazonAlexa\RequestHandler\RequestHandlerRegistry;
 use MaxBeckers\AmazonAlexa\Response\Response;

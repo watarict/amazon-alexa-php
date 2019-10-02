@@ -4,26 +4,26 @@ namespace MaxBeckers\AmazonAlexa\Request;
 
 use MaxBeckers\AmazonAlexa\Exception\MissingRequestDataException;
 use MaxBeckers\AmazonAlexa\Exception\MissingRequiredHeaderException;
-use MaxBeckers\AmazonAlexa\Request\Standard\Context;
-use MaxBeckers\AmazonAlexa\Request\Standard\Request\AbstractRequest;
-use MaxBeckers\AmazonAlexa\Request\Standard\Request\AudioPlayer\PlaybackFailedRequest;
-use MaxBeckers\AmazonAlexa\Request\Standard\Request\AudioPlayer\PlaybackFinishedRequest;
-use MaxBeckers\AmazonAlexa\Request\Standard\Request\AudioPlayer\PlaybackNearlyFinishedRequest;
-use MaxBeckers\AmazonAlexa\Request\Standard\Request\AudioPlayer\PlaybackStartedRequest;
-use MaxBeckers\AmazonAlexa\Request\Standard\Request\AudioPlayer\PlaybackStoppedRequest;
-use MaxBeckers\AmazonAlexa\Request\Standard\Request\CanFulfill\CanFulfillIntentRequest;
-use MaxBeckers\AmazonAlexa\Request\Standard\Request\Display\ElementSelectedRequest;
-use MaxBeckers\AmazonAlexa\Request\Standard\Request\GameEngine\InputHandlerEvent;
-use MaxBeckers\AmazonAlexa\Request\Standard\Request\PlaybackController\NextCommandIssued;
-use MaxBeckers\AmazonAlexa\Request\Standard\Request\PlaybackController\PauseCommandIssued;
-use MaxBeckers\AmazonAlexa\Request\Standard\Request\PlaybackController\PlayCommandIssued;
-use MaxBeckers\AmazonAlexa\Request\Standard\Request\PlaybackController\PreviousCommandIssued;
-use MaxBeckers\AmazonAlexa\Request\Standard\Request\Standard\IntentRequest;
-use MaxBeckers\AmazonAlexa\Request\Standard\Request\Standard\LaunchRequest;
-use MaxBeckers\AmazonAlexa\Request\Standard\Request\Standard\SessionEndedRequest;
-use MaxBeckers\AmazonAlexa\Request\Standard\Request\System\ConnectionsResponseRequest;
-use MaxBeckers\AmazonAlexa\Request\Standard\Request\System\ExceptionEncounteredRequest;
-use MaxBeckers\AmazonAlexa\Request\Standard\Session;
+use MaxBeckers\AmazonAlexa\Request\Custom\Context;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request\AbstractRequest;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request\AudioPlayer\PlaybackFailedRequest;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request\AudioPlayer\PlaybackFinishedRequest;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request\AudioPlayer\PlaybackNearlyFinishedRequest;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request\AudioPlayer\PlaybackStartedRequest;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request\AudioPlayer\PlaybackStoppedRequest;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request\CanFulfill\CanFulfillIntentRequest;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request\Display\ElementSelectedRequest;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request\GameEngine\InputHandlerEvent;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request\PlaybackController\NextCommandIssued;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request\PlaybackController\PauseCommandIssued;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request\PlaybackController\PlayCommandIssued;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request\PlaybackController\PreviousCommandIssued;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request\Standard\IntentRequest;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request\Standard\LaunchRequest;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request\Standard\SessionEndedRequest;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request\System\ConnectionsResponseRequest;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request\System\ExceptionEncounteredRequest;
+use MaxBeckers\AmazonAlexa\Request\Custom\Session;
 
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
