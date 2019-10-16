@@ -2,7 +2,7 @@
 
 namespace MaxBeckers\AmazonAlexa\RequestHandler;
 
-use MaxBeckers\AmazonAlexa\Request\Request;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request;
 use MaxBeckers\AmazonAlexa\Response\Response;
 
 /**

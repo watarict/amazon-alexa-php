@@ -2,11 +2,11 @@
 
 namespace MaxBeckers\AmazonAlexa\Test\Request\Custom;
 
+use MaxBeckers\AmazonAlexa\Request\Custom\Request;
 use MaxBeckers\AmazonAlexa\Request\Custom\Request\PlaybackController\NextCommandIssued;
 use MaxBeckers\AmazonAlexa\Request\Custom\Request\PlaybackController\PauseCommandIssued;
 use MaxBeckers\AmazonAlexa\Request\Custom\Request\PlaybackController\PlayCommandIssued;
 use MaxBeckers\AmazonAlexa\Request\Custom\Request\PlaybackController\PreviousCommandIssued;
-use MaxBeckers\AmazonAlexa\Request\Request;
 use PHPUnit\Framework\TestCase;
 
 /**

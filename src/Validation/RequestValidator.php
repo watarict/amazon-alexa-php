@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 use MaxBeckers\AmazonAlexa\Exception\OutdatedCertExceptionException;
 use MaxBeckers\AmazonAlexa\Exception\RequestInvalidSignatureException;
 use MaxBeckers\AmazonAlexa\Exception\RequestInvalidTimestampException;
-use MaxBeckers\AmazonAlexa\Request\Request;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request;
 
 /**
  * This is a validator for amazon echo requests. It validates the timestamp of the request and the request signature.

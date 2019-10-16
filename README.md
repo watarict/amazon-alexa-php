@@ -24,7 +24,7 @@ Handle the request:
 ### Map request data to request object
 Map needed request headers and request body to `Request`.
 ```php
-use MaxBeckers\AmazonAlexa\Request\Request;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request;
 ...
 $requestBody  = file_get_contents('php://input');
 $alexaRequest = Request::fromAmazonRequest($requestBody, $_SERVER['HTTP_SIGNATURECERTCHAINURL'], $_SERVER['HTTP_SIGNATURE']);
@@ -71,7 +71,7 @@ Then implement the abstract `supportsRequest`-method.
 ```php
 public function supportsRequest(Request $request): bool
 {
-    return $request->request instanceOf MaxBeckers\AmazonAlexa\Request\Request\Standard\IntentRequest &&
+    return $request->request instanceOf MaxBeckers\AmazonAlexa\Request\Custom\Request\Standard\IntentRequest &&
         'MyTestIntent' === $request->request->intent->name;
 }
 ```

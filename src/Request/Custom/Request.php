@@ -1,14 +1,10 @@
 <?php
 
-namespace MaxBeckers\AmazonAlexa\Request;
+namespace MaxBeckers\AmazonAlexa\Request\Custom;
 
 use MaxBeckers\AmazonAlexa\Exception\MissingRequestDataException;
 use MaxBeckers\AmazonAlexa\Exception\MissingRequiredHeaderException;
-use MaxBeckers\AmazonAlexa\Request\Custom\Context;
 use MaxBeckers\AmazonAlexa\Request\Custom\Request\AbstractRequest;
-use MaxBeckers\AmazonAlexa\Request\Custom\RequestTypes as CustomRequestTypes;
-use MaxBeckers\AmazonAlexa\Request\Custom\Session;
-use MaxBeckers\AmazonAlexa\Request\SmartHome\RequestTypes as SmartHomeRequestTypes;
 
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
@@ -102,38 +98,13 @@ class Request
      */
     private function setRequest(array $amazonRequest)
     {
-        if (
-            isset($amazonRequest['request']['type']) &&
-            isset(CustomRequestTypes::REQUEST_TYPES[$amazonRequest['request']['type']])
-        ) {
-            $this->setStandardRequest($amazonRequest);
-        } elseif (
-            isset($amazonRequest['directive']['header']['namespace']) &&
-            isset($amazonRequest['directive']['header']['name']) &&
-            isset(SmartHomeRequestTypes::REQUEST_TYPES[$amazonRequest['directive']['header']['namespace']][$amazonRequest['directive']['header']['name']])
-        ) {
-            $this->setSmartHomeRequest($amazonRequest);
-        } else {
-            throw new MissingRequestDataException();
-        }
-    }
-
-    /**
-     * @param array $amazonRequest
-     */
-    private function setStandardRequest(array $amazonRequest)
-    {
         $this->version = isset($amazonRequest['version']) ? $amazonRequest['version'] : null;
         $this->session = isset($amazonRequest['session']) ? Session::fromAmazonRequest($amazonRequest['session']) : null;
         $this->context = isset($amazonRequest['context']) ? Context::fromAmazonRequest($amazonRequest['context']) : null;
-        $this->request = (CustomRequestTypes::REQUEST_TYPES[$amazonRequest['request']['type']])::fromAmazonRequest($amazonRequest['request']);
-    }
-
-    /**
-     * @param array $amazonRequest
-     */
-    private function setSmartHomeRequest(array $amazonRequest)
-    {
-        $this->request = (SmartHomeRequestTypes::REQUEST_TYPES[$amazonRequest['directive']['header']['namespace']][$amazonRequest['directive']['header']['name']])::fromAmazonRequest($amazonRequest['request']);
+        if (!isset($amazonRequest['request']['type']) ||
+            !isset(RequestTypes::REQUEST_TYPES[$amazonRequest['request']['type']])) {
+            throw new MissingRequestDataException();
+        }
+        $this->request = (RequestTypes::REQUEST_TYPES[$amazonRequest['request']['type']])::fromAmazonRequest($amazonRequest['request']);
     }
 }

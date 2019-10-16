@@ -2,12 +2,12 @@
 
 namespace MaxBeckers\AmazonAlexa\Test\Request\Custom;
 
+use MaxBeckers\AmazonAlexa\Request\Custom\Request;
 use MaxBeckers\AmazonAlexa\Request\Custom\Request\AudioPlayer\PlaybackFailedRequest;
 use MaxBeckers\AmazonAlexa\Request\Custom\Request\AudioPlayer\PlaybackFinishedRequest;
 use MaxBeckers\AmazonAlexa\Request\Custom\Request\AudioPlayer\PlaybackNearlyFinishedRequest;
 use MaxBeckers\AmazonAlexa\Request\Custom\Request\AudioPlayer\PlaybackStartedRequest;
 use MaxBeckers\AmazonAlexa\Request\Custom\Request\AudioPlayer\PlaybackStoppedRequest;
-use MaxBeckers\AmazonAlexa\Request\Request;
 use PHPUnit\Framework\TestCase;
 
 /**

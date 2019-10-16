@@ -2,10 +2,10 @@
 
 namespace MaxBeckers\AmazonAlexa\Test\Request\Custom;
 
+use MaxBeckers\AmazonAlexa\Request\Custom\Request;
 use MaxBeckers\AmazonAlexa\Request\Custom\Request\GameEngine\Event\Event;
 use MaxBeckers\AmazonAlexa\Request\Custom\Request\GameEngine\Event\InputEvent;
 use MaxBeckers\AmazonAlexa\Request\Custom\Request\GameEngine\InputHandlerEvent;
-use MaxBeckers\AmazonAlexa\Request\Request;
 use PHPUnit\Framework\TestCase;
 
 /**

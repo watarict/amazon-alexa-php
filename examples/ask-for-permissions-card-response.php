@@ -1,7 +1,7 @@
 <?php
 
 use MaxBeckers\AmazonAlexa\Helper\ResponseHelper;
-use MaxBeckers\AmazonAlexa\Request\Request;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request;
 use MaxBeckers\AmazonAlexa\RequestHandler\Basic\HelpRequestHandler;
 use MaxBeckers\AmazonAlexa\RequestHandler\RequestHandlerRegistry;
 use MaxBeckers\AmazonAlexa\Validation\RequestValidator;

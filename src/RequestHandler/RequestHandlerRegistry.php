@@ -3,7 +3,7 @@
 namespace MaxBeckers\AmazonAlexa\RequestHandler;
 
 use MaxBeckers\AmazonAlexa\Exception\MissingRequestHandlerException;
-use MaxBeckers\AmazonAlexa\Request\Request;
+use MaxBeckers\AmazonAlexa\Request\Custom\Request;
 
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>

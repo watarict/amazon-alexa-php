@@ -2,8 +2,8 @@
 
 namespace MaxBeckers\AmazonAlexa\Test\Request\Custom;
 
+use MaxBeckers\AmazonAlexa\Request\Custom\Request;
 use MaxBeckers\AmazonAlexa\Request\Custom\Request\System\ExceptionEncounteredRequest;
-use MaxBeckers\AmazonAlexa\Request\Request;
 use PHPUnit\Framework\TestCase;
 
 /**
