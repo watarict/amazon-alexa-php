@@ -9,5 +9,4 @@ use MaxBeckers\AmazonAlexa\Request\Custom\Request\Standard\StandardRequest;
  */
 abstract class SystemRequest extends StandardRequest
 {
-
 }
