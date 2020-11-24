@@ -36,6 +36,16 @@ class SsmlGenerator implements SsmlTypes
     {
         return sprintf('<speak>%s</speak>', implode(' ', $this->parts));
     }
+	
+	/**
+     * @return string
+     * TO BE USED IN COMBINATION WITH OTHER SSMLGENERATOR!
+     * the ssml generated does not include the <speak> tag.
+     */
+    public function getSsmlToInclude()
+    {
+        return implode(' ', $this->parts);
+    }
 
     /**
      * Say a default text.

@@ -37,6 +37,7 @@ abstract class AbstractRequest
      */
     public function validateSignature(): bool
     {
-        return true;
+        return !$GLOBALS['DISABLE_VALIDATOR'];
+        //return true;
     }
 }
